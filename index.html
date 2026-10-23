@@ -4,40 +4,49 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BrandGuard AI | Smart Brand Protection</title>
+<title>BrandGuard AI | Brand Governance Platform</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#080e1d;--panel:#121d32;--line:#2c3b57;--cyan:#67e8f9;--muted:#a8b5cb}
+*{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{font-family:Arial,sans-serif;background:#080d1c;color:#f8fafc;line-height:1.6}
-header{padding:18px 7%;display:flex;justify-content:space-between;align-items:center;gap:15px;background:#111a30;position:sticky;top:0;z-index:10;border-bottom:1px solid #263653}
-.logo{font-size:21px;font-weight:bold;color:#67e8f9}
-nav a{color:#e2e8f0;text-decoration:none;margin-left:13px;font-size:13px}
-nav a:hover{color:#67e8f9}
-.hero{text-align:center;padding:75px 20px;background:radial-gradient(ellipse at top,#234477,#080d1c 72%)}
-.tag{display:inline-block;border:1px solid #5274a8;border-radius:25px;padding:5px 15px;color:#a5d9ff;font-size:12px}
-h1{font-size:clamp(35px,7vw,62px);line-height:1.12;margin:24px 0}
-h1 span{color:#67e8f9}
-.hero p{max-width:650px;margin:0 auto 25px;color:#cbd5e1}
-button{background:#67e8f9;color:#07111f;border:0;padding:12px 20px;border-radius:9px;font-weight:bold;font-size:14px;cursor:pointer}
-button:hover{background:#a5f3fc}
-section{padding:50px 7%}
-h2{text-align:center;font-size:29px;margin-bottom:8px}
-.sub{text-align:center;color:#94a3b8;margin-bottom:30px}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px}
-.card{background:#121c31;border:1px solid #2b3b59;border-radius:15px;padding:23px}
-.emoji{font-size:30px}
-.card h3{margin:12px 0;color:#a5f3fc}
-.card p{color:#cbd5e1;font-size:14px}
-.tool{max-width:700px;margin:auto;background:#121c31;border:1px solid #2b3b59;border-radius:16px;padding:23px}
-label{display:block;margin:15px 0 7px}
-input,textarea,select{width:100%;padding:13px;border:1px solid #40506d;background:#080d1c;color:white;border-radius:9px;font-size:15px}
-textarea{min-height:110px;resize:vertical}
-.result{display:none;margin-top:18px;padding:17px;border-radius:10px;background:#102d30;border:1px solid #2d8980}
-.result h3{color:#99f6e4;margin-bottom:7px}
-.note{font-size:12px;color:#94a3b8;margin-top:12px}
-.about{max-width:750px;margin:auto;text-align:center;color:#cbd5e1}
-footer{text-align:center;padding:25px;color:#94a3b8;border-top:1px solid #263653;font-size:13px}
-@media(max-width:480px){header{padding:14px 4%;flex-wrap:wrap}nav a{margin-left:8px;font-size:12px}.hero{padding:55px 17px}section{padding:38px 5%}}
+body{margin:0;background:var(--bg);color:#f8fafc;font-family:Arial,sans-serif;line-height:1.6}
+header{background:#111a2c;border-bottom:1px solid var(--line);padding:17px 5%;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.logo{font-size:21px;font-weight:bold;color:var(--cyan)}
+nav{display:flex;gap:15px;flex-wrap:wrap}
+a{color:var(--cyan);text-decoration:none}
+nav a{color:white;font-size:13px}
+main{max-width:1100px;margin:auto;padding:25px 16px 50px}
+.hero{padding:32px 22px;border-radius:18px;background:linear-gradient(130deg,#172554,#312e81,#164e63);margin-bottom:25px}
+.tag{font-size:12px;color:#a5f3fc;letter-spacing:2px}
+h1{font-size:clamp(29px,5vw,45px);line-height:1.15;margin:10px 0}
+.hero p{max-width:700px;color:#dbeafe}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:13px;margin:20px 0}
+.stat,.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}
+.stat small{display:block;color:var(--muted)}
+.number{font-size:27px;font-weight:bold;color:var(--cyan)}
+.layout{display:grid;grid-template-columns:1fr 1.15fr;gap:18px;align-items:start}
+h2{font-size:21px;margin:0 0 13px}
+h3{font-size:16px;margin:0 0 9px}
+p{overflow-wrap:anywhere}
+label{display:block;margin:13px 0 6px;font-size:14px;color:#dbeafe}
+input,textarea,select{width:100%;padding:12px;background:#080e1d;color:white;border:1px solid #40516f;border-radius:8px;font:inherit}
+textarea{min-height:125px;resize:vertical}
+button{border:0;border-radius:8px;padding:11px 15px;margin:8px 5px 0 0;background:var(--cyan);color:#07111f;font-weight:bold;cursor:pointer}
+button:hover{filter:brightness(1.1)}
+.secondary{background:#334155;color:white}
+.danger{background:#7f1d1d;color:white}
+.muted{color:var(--muted);font-size:13px}
+.rule{padding:10px 0;border-bottom:1px solid var(--line)}
+.result{margin-top:15px;padding:15px;border-radius:10px;background:#0b2930;border:1px solid #236c69}
+.result ul{padding-left:22px}
+.pill{display:inline-block;background:#24324c;color:#bfdbfe;padding:4px 9px;border-radius:20px;font-size:12px;margin:3px}
+.progress{height:10px;background:#26344c;border-radius:10px;overflow:hidden;margin:12px 0}
+.bar{height:100%;width:0;background:linear-gradient(90deg,#f87171,#facc15,#34d399)}
+.issue{padding:12px 0;border-bottom:1px solid var(--line)}
+.issue strong{color:#fde68a}
+.hidden{display:none}
+footer{text-align:center;color:var(--muted);padding:25px;border-top:1px solid var(--line);font-size:13px}
+@media(max-width:720px){.layout{grid-template-columns:1fr}header{align-items:flex-start}.hero{padding:25px 17px}}
 </style>
 </head>
 <body>
@@ -45,132 +54,325 @@ footer{text-align:center;padding:25px;color:#94a3b8;border-top:1px solid #263653
 <header>
   <div class="logo">🛡️ BrandGuard AI</div>
   <nav>
-    <a href="#features">Features</a>
-    <a href="#scanner">Scanner</a>
-    <a href="#about">About</a>
+    <a href="#dashboard">Dashboard</a>
+    <a href="#rules">Brand Rules</a>
+    <a href="#checker">Content Checker</a>
+    <a href="#reports">Reports</a>
   </nav>
 </header>
 
 <main>
-<div class="hero">
-  <div class="tag">✦ SMART DIGITAL SAFETY</div>
-  <h1>Protect Your Brand.<br><span>Stay One Step Ahead.</span></h1>
-  <p>A smart, beginner-friendly web tool to review suspicious messages and learn how to stay safe from online scams and brand impersonation.</p>
-  <button onclick="document.getElementById('scanner').scrollIntoView()">Try Smart Scanner ↓</button>
+<section class="hero">
+  <div class="tag">BRAND GOVERNANCE • CONTENT COMPLIANCE</div>
+  <h1>Protect Your Brand.<br>Build Consistent Content.</h1>
+  <p>Review content against your brand guidelines, identify possible compliance issues and prepare content for human approval.</p>
+  <a href="#checker"><button>Start Content Review →</button></a>
+</section>
+
+<section id="dashboard">
+<h2>Project Dashboard</h2>
+<div class="stats">
+  <div class="stat"><small>Content Checks</small><div class="number" id="checks">0</div></div>
+  <div class="stat"><small>Approved Items</small><div class="number" id="approved">0</div></div>
+  <div class="stat"><small>Flagged Issues</small><div class="number" id="flags">0</div></div>
+  <div class="stat"><small>Latest Score</small><div class="number" id="latest">—</div></div>
+</div>
+</section>
+
+<div class="layout">
+<section class="panel" id="rules">
+<h2>⚙️ Brand Rule Settings</h2>
+<p class="muted">Set your own rules. The checker uses these settings to review content.</p>
+
+<label for="brandName">Brand name</label>
+<input id="brandName" value="My Brand" maxlength="60">
+
+<label for="tone">Preferred tone</label>
+<select id="tone">
+<option value="professional">Professional</option>
+<option value="friendly">Friendly</option>
+<option value="formal">Formal</option>
+<option value="simple">Simple and clear</option>
+</select>
+
+<label for="blocked">Prohibited words (comma-separated)</label>
+<input id="blocked" value="guaranteed,best in the world,100% risk-free">
+
+<label for="required">Required phrase (optional)</label>
+<input id="required" placeholder="Example: Terms and conditions apply">
+
+<button onclick="saveRules()">Save Brand Rules</button>
+<p id="ruleStatus" class="muted" aria-live="polite">Default demo rules are active.</p>
+
+<div class="rule">
+<strong>Current rules</strong>
+<p class="muted">The checker looks for prohibited words, required phrases, exaggerated claims and suspicious wording.</p>
+</div>
+</section>
+
+<section class="panel" id="checker">
+<h2>🔍 Content Compliance Checker</h2>
+<p class="muted">Paste a marketing message, social post or brand announcement below.</p>
+
+<label for="content">Content to review</label>
+<textarea id="content" placeholder="Example: Our product is guaranteed to be the best in the world!"></textarea>
+
+<div>
+<button onclick="analyze()">Analyze Content</button>
+<button class="secondary" onclick="loadExample()">Load Example</button>
+<button class="secondary" onclick="clearContent()">Clear</button>
 </div>
 
-<section id="features">
-  <h2>What We Offer</h2>
-  <p class="sub">Explore simple tools for safer digital experiences.</p>
-  <div class="cards">
-    <div class="card">
-      <div class="emoji">🔎</div>
-      <h3>Message Checker</h3>
-      <p>Review message text for common scam warning signs.</p>
-    </div>
-    <div class="card">
-      <div class="emoji">🛡️</div>
-      <h3>Brand Protection</h3>
-      <p>Learn how fake brand accounts and impersonation attempts can mislead users.</p>
-    </div>
-    <div class="card">
-      <div class="emoji">🔐</div>
-      <h3>Safety Tips</h3>
-      <p>Discover simple steps to protect your accounts and personal information.</p>
-    </div>
-  </div>
+<div id="result" class="result hidden" aria-live="polite">
+<h3 id="resultTitle">Review Results</h3>
+<div class="number" id="score">0/100</div>
+<div class="progress"><div class="bar" id="bar"></div></div>
+<p id="summary"></p>
+<div id="issues"></div>
+<h3 style="margin-top:18px">Suggested Revision</h3>
+<textarea id="suggestion" aria-label="Suggested revision"></textarea>
+<p class="muted">Review the suggested revision carefully before using it. Suggestions are generated using simple rules, not an AI model.</p>
+<button onclick="useSuggestion()">Use Suggested Revision</button>
+<button onclick="approveContent()">Approve Reviewed Content</button>
+</div>
+</section>
+</div>
+
+<section class="panel" id="reports" style="margin-top:20px">
+<h2>📊 Review History & Reports</h2>
+<p class="muted">Results are stored in this page while it remains open. Download a report to keep a copy.</p>
+<div id="history"><p class="muted">No reviews completed yet.</p></div>
+<button onclick="downloadReport()">Download Project Report</button>
+<button class="secondary" onclick="clearHistory()">Clear History</button>
 </section>
 
-<section id="scanner">
-  <h2>Smart Message Scanner</h2>
-  <p class="sub">Enter a message to check for common warning signs.</p>
-  <div class="tool">
-    <label for="message">Paste your message here</label>
-    <textarea id="message" placeholder="Example: Congratulations! You won a prize. Click this link and share your OTP..."></textarea>
-    <label for="kind">What would you like to check?</label>
-    <select id="kind">
-      <option value="message">Suspicious message</option>
-      <option value="brand">Brand impersonation warning signs</option>
-    </select>
-    <br><br>
-    <button onclick="checkMessage()">Check Message</button>
-    <button onclick="clearScanner()" style="background:#334155;color:white;margin-left:6px">Clear</button>
-    <div class="result" id="result" aria-live="polite">
-      <h3 id="resultTitle"></h3>
-      <p id="resultText"></p>
-      <p id="resultAdvice" style="margin-top:10px"></p>
-    </div>
-    <p class="note">Demo tool only: this scanner uses basic keyword checks. It does not use a trained AI model and cannot confirm whether a message is safe or fraudulent.</p>
-  </div>
-</section>
-
-<section id="about">
-  <h2>About BrandGuard AI</h2>
-  <p class="sub">Technology for a safer digital world.</p>
-  <div class="about">
-    <p>BrandGuard AI is a student web project that demonstrates how simple rule-based checks can help people notice possible online scam signals. Always verify important messages through official websites or trusted contact details.</p>
-  </div>
+<section class="panel" style="margin-top:20px">
+<h2>🧠 How This Prototype Works</h2>
+<div class="rule"><strong>1. Configure</strong><p class="muted">Enter your brand's tone, restricted words and required phrases.</p></div>
+<div class="rule"><strong>2. Analyze</strong><p class="muted">A rule-based engine searches for configured words and selected risk signals.</p></div>
+<div class="rule"><strong>3. Review</strong><p class="muted">Inspect issues, edit the suggested revision and approve the content yourself.</p></div>
+<p class="muted">Transparency: this prototype does not connect to an external AI service, verify legal claims or guarantee compliance. Its results are a preliminary checklist for human review.</p>
 </section>
 </main>
 
 <footer>
-  <p>🛡️ BrandGuard AI · Student Project</p>
-  <p>Stay alert. Verify before you trust.</p>
+  <p>🛡️ BrandGuard AI | Hackathon Prototype</p>
+  <p>Review responsibly. Verify before publishing.</p>
 </footer>
 
 <script>
-function checkMessage(){
-  const message=document.getElementById("message").value.trim();
-  const kind=document.getElementById("kind").value;
-  const result=document.getElementById("result");
-  const title=document.getElementById("resultTitle");
-  const text=document.getElementById("resultText");
-  const advice=document.getElementById("resultAdvice");
+let rules={
+ brand:"My Brand",
+ tone:"professional",
+ blocked:["guaranteed","best in the world","100% risk-free"],
+ required:""
+};
+let stats={checks:0,approved:0,flags:0,latest:null};
+let history=[];
+let lastResult=null;
 
-  if(!message){
-    alert("Please paste a message first.");
-    return;
-  }
-
-  const lower=message.toLowerCase();
-  const warningWords=[
-    "otp","password","urgent","verify your account",
-    "won a prize","claim your prize","click here",
-    "bank details","send money","limited time",
-    "account suspended","gift card","free reward"
-  ];
-  const found=warningWords.filter(word=>lower.includes(word));
-
-  if(kind==="brand"){
-    const brandWords=["official","brand ambassador","customer support","account verified","giveaway","free gift","brand"];
-    const brandFound=brandWords.filter(word=>lower.includes(word));
-    if(found.length>0||brandFound.length>0){
-      title.textContent="⚠️ Please Verify This Message";
-      text.textContent="Some words may need closer review: "+[...new Set([...found,...brandFound])].join(", ")+".";
-      advice.textContent="Visit the brand's official website directly. Do not share passwords, OTPs, or payment details.";
-    }else{
-      title.textContent="🔍 Manual Verification Recommended";
-      text.textContent="No obvious warning keywords were found by this basic checker.";
-      advice.textContent="This does not prove the message is genuine. Verify the sender and website independently.";
-    }
-  }else if(found.length>0){
-    title.textContent="⚠️ Potential Warning Signs Found";
-    text.textContent="Words that may require attention: "+found.join(", ")+".";
-    advice.textContent="Do not click unexpected links or share OTPs, passwords, or banking details. Verify through an official channel.";
-  }else{
-    title.textContent="🔍 No Common Warning Keywords Found";
-    text.textContent="This basic scan did not identify any of its listed warning words.";
-    advice.textContent="A message can still be fraudulent. Check the sender, links, spelling, and unexpected requests before responding.";
-  }
-  result.style.display="block";
-  result.scrollIntoView({behavior:"smooth",block:"nearest"});
+function saveRules(){
+ rules.brand=document.getElementById("brandName").value.trim()||"My Brand";
+ rules.tone=document.getElementById("tone").value;
+ rules.blocked=document.getElementById("blocked").value
+ .split(",").map(x=>x.trim().toLowerCase()).filter(Boolean);
+ rules.required=document.getElementById("required").value.trim();
+ document.getElementById("ruleStatus").textContent="Brand rules saved for this session.";
 }
-function clearScanner(){
-  document.getElementById("message").value="";
-  document.getElementById("result").style.display="none";
-  document.getElementById("kind").selectedIndex=0;
+
+function loadExample(){
+ document.getElementById("content").value=
+ "Our product is guaranteed to be the best in the world! Buy now for a 100% risk-free experience.";
+ document.getElementById("result").classList.add("hidden");
 }
+
+function clearContent(){
+ document.getElementById("content").value="";
+ document.getElementById("result").classList.add("hidden");
+ lastResult=null;
+}
+
+function analyze(){
+ saveRules();
+ const original=document.getElementById("content").value.trim();
+ if(!original){alert("Please enter content to review.");return;}
+
+ const text=original.toLowerCase();
+ const issues=[];
+ let points=100;
+
+ rules.blocked.forEach(word=>{
+  if(word && text.includes(word)){
+   issues.push("Prohibited phrase found: \""+word+"\".");
+   points-=20;
+  }
+ });
+
+ if(rules.required && !text.includes(rules.required.toLowerCase())){
+  issues.push("Required phrase is missing: \""+rules.required+"\".");
+  points-=15;
+ }
+
+ const risks=[
+  {word:"guarantee",message:"Absolute guarantee wording may need evidence."},
+  {word:"100%",message:"Check whether this absolute claim can be supported."},
+  {word:"risk-free",message:"Review whether this risk claim is accurate."},
+  {word:"click here",message:"Consider using a clearer link description."},
+  {word:"limited time",message:"Verify any time-limited promotion is genuine."},
+  {word:"always",message:"Check whether this broad claim is accurate."},
+  {word:"never",message:"Check whether this absolute claim is accurate."}
+ ];
+
+ risks.forEach(r=>{
+  if(text.includes(r.word) && !issues.some(i=>i.toLowerCase().includes(r.word))){
+   issues.push(r.message);
+   points-=10;
+  }
+ });
+
+ if(rules.tone==="professional" && /!!!|😊|😍/.test(original)){
+  issues.push("Review punctuation or emoji use for a professional tone.");
+  points-=5;
+ }
+ if(rules.tone==="formal" && /!!!|😊|😍|hey guys/i.test(original)){
+  issues.push("Review informal language for a formal tone.");
+  points-=5;
+ }
+ if(rules.tone==="simple" && original.length>400){
+  issues.push("Consider shortening the content for clarity.");
+  points-=5;
+ }
+
+ points=Math.max(0,Math.min(100,points));
+ const result={
+  brand:rules.brand,
+  content:original,
+  score:points,
+  issues:issues,
+  status:"Needs review",
+  date:new Date().toLocaleString()
+ };
+ lastResult=result;
+ stats.checks++;
+ stats.flags+=issues.length;
+ stats.latest=points;
+
+ document.getElementById("result").classList.remove("hidden");
+ document.getElementById("resultTitle").textContent=
+  issues.length?"⚠️ Review Recommended":"✅ No Configured Issues Found";
+ document.getElementById("score").textContent=points+"/100";
+ document.getElementById("bar").style.width=points+"%";
+ document.getElementById("summary").textContent=
+  issues.length?issues.length+" potential issue(s) found. Please review before publishing.":
+  "No configured warning rules were triggered. This does not guarantee compliance.";
+
+ document.getElementById("issues").innerHTML=issues.length?
+  "<ul>"+issues.map(x=>"<li>"+escapeHTML(x)+"</li>").join("")+"</ul>":
+  "<p>No issues detected by the configured checks.</p>";
+
+ document.getElementById("suggestion").value=makeSuggestion(original,issues);
+ history.unshift(result);
+ render();
+}
+
+function makeSuggestion(original,issues){
+ let output=original;
+ rules.blocked.forEach(word=>{
+  if(word)output=output.replace(new RegExp(escapeRegExp(word),"gi"),"[review this claim]");
+ });
+ if(rules.required && !output.toLowerCase().includes(rules.required.toLowerCase())){
+  output+=" "+rules.required;
+ }
+ if(issues.length===0){
+  return output;
+ }
+ return output;
+}
+
+function useSuggestion(){
+ if(!lastResult)return;
+ const suggestion=document.getElementById("suggestion").value.trim();
+ if(!suggestion){alert("No suggested revision available.");return;}
+ document.getElementById("content").value=suggestion;
+ document.getElementById("result").classList.add("hidden");
+ document.getElementById("content").scrollIntoView({behavior:"smooth"});
+}
+
+function approveContent(){
+ if(!lastResult){alert("Analyze content first.");return;}
+ const revised=document.getElementById("suggestion").value.trim();
+ if(!revised){alert("Please provide content for review.");return;}
+ lastResult.content=revised;
+ lastResult.status="Human approved";
+ stats.approved++;
+ render();
+ alert("Review marked as approved. Please verify the content before publishing.");
+}
+
+function render(){
+ document.getElementById("checks").textContent=stats.checks;
+ document.getElementById("approved").textContent=stats.approved;
+ document.getElementById("flags").textContent=stats.flags;
+ document.getElementById("latest").textContent=
+  stats.latest===null?"—":stats.latest+"/100";
+
+ const container=document.getElementById("history");
+ if(!history.length){
+  container.innerHTML='<p class="muted">No reviews completed yet.</p>';
+  return;
+ }
+ container.innerHTML=history.map((item,index)=>
+  '<div class="issue"><strong>'+escapeHTML(item.brand)+'</strong>'+
+  ' <span class="pill">'+item.score+'/100</span>'+
+  ' <span class="pill">'+escapeHTML(item.status)+'</span>'+
+  '<p class="muted">'+escapeHTML(item.date)+'</p>'+
+  '<p>'+escapeHTML(item.content.slice(0,180))+'</p>'+
+  '<p class="muted">Potential issues: '+item.issues.length+'</p></div>'
+ ).join("");
+}
+
+function downloadReport(){
+ if(!history.length){alert("Please analyze some content first.");return;}
+ const report={
+  project:"BrandGuard AI",
+  type:"Rule-based brand governance prototype",
+  generatedAt:new Date().toISOString(),
+  brandRules:rules,
+  statistics:stats,
+  reviews:history
+ };
+ const blob=new Blob([JSON.stringify(report,null,2)],{type:"application/json"});
+ const url=URL.createObjectURL(blob);
+ const a=document.createElement("a");
+ a.href=url;
+ a.download="BrandGuard-AI-Report.json";
+ document.body.appendChild(a);
+ a.click();
+ a.remove();
+ URL.revokeObjectURL(url);
+}
+
+function clearHistory(){
+ if(!confirm("Clear all review history for this session?"))return;
+ history=[];
+ stats={checks:0,approved:0,flags:0,latest:null};
+ lastResult=null;
+ render();
+ document.getElementById("result").classList.add("hidden");
+}
+
+function escapeHTML(value){
+ return String(value).replace(/[&<>"']/g,function(c){
+  return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+ });
+}
+
+function escapeRegExp(value){
+ return value.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+}
+render();
 </script>
 </body>
 </html>
 
+    
