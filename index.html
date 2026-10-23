@@ -1,1 +1,176 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrandGuard AI | Smart Brand Protection</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Arial,sans-serif;background:#080d1c;color:#f8fafc;line-height:1.6}
+header{padding:18px 7%;display:flex;justify-content:space-between;align-items:center;gap:15px;background:#111a30;position:sticky;top:0;z-index:10;border-bottom:1px solid #263653}
+.logo{font-size:21px;font-weight:bold;color:#67e8f9}
+nav a{color:#e2e8f0;text-decoration:none;margin-left:13px;font-size:13px}
+nav a:hover{color:#67e8f9}
+.hero{text-align:center;padding:75px 20px;background:radial-gradient(ellipse at top,#234477,#080d1c 72%)}
+.tag{display:inline-block;border:1px solid #5274a8;border-radius:25px;padding:5px 15px;color:#a5d9ff;font-size:12px}
+h1{font-size:clamp(35px,7vw,62px);line-height:1.12;margin:24px 0}
+h1 span{color:#67e8f9}
+.hero p{max-width:650px;margin:0 auto 25px;color:#cbd5e1}
+button{background:#67e8f9;color:#07111f;border:0;padding:12px 20px;border-radius:9px;font-weight:bold;font-size:14px;cursor:pointer}
+button:hover{background:#a5f3fc}
+section{padding:50px 7%}
+h2{text-align:center;font-size:29px;margin-bottom:8px}
+.sub{text-align:center;color:#94a3b8;margin-bottom:30px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px}
+.card{background:#121c31;border:1px solid #2b3b59;border-radius:15px;padding:23px}
+.emoji{font-size:30px}
+.card h3{margin:12px 0;color:#a5f3fc}
+.card p{color:#cbd5e1;font-size:14px}
+.tool{max-width:700px;margin:auto;background:#121c31;border:1px solid #2b3b59;border-radius:16px;padding:23px}
+label{display:block;margin:15px 0 7px}
+input,textarea,select{width:100%;padding:13px;border:1px solid #40506d;background:#080d1c;color:white;border-radius:9px;font-size:15px}
+textarea{min-height:110px;resize:vertical}
+.result{display:none;margin-top:18px;padding:17px;border-radius:10px;background:#102d30;border:1px solid #2d8980}
+.result h3{color:#99f6e4;margin-bottom:7px}
+.note{font-size:12px;color:#94a3b8;margin-top:12px}
+.about{max-width:750px;margin:auto;text-align:center;color:#cbd5e1}
+footer{text-align:center;padding:25px;color:#94a3b8;border-top:1px solid #263653;font-size:13px}
+@media(max-width:480px){header{padding:14px 4%;flex-wrap:wrap}nav a{margin-left:8px;font-size:12px}.hero{padding:55px 17px}section{padding:38px 5%}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">🛡️ BrandGuard AI</div>
+  <nav>
+    <a href="#features">Features</a>
+    <a href="#scanner">Scanner</a>
+    <a href="#about">About</a>
+  </nav>
+</header>
+
+<main>
+<div class="hero">
+  <div class="tag">✦ SMART DIGITAL SAFETY</div>
+  <h1>Protect Your Brand.<br><span>Stay One Step Ahead.</span></h1>
+  <p>A smart, beginner-friendly web tool to review suspicious messages and learn how to stay safe from online scams and brand impersonation.</p>
+  <button onclick="document.getElementById('scanner').scrollIntoView()">Try Smart Scanner ↓</button>
+</div>
+
+<section id="features">
+  <h2>What We Offer</h2>
+  <p class="sub">Explore simple tools for safer digital experiences.</p>
+  <div class="cards">
+    <div class="card">
+      <div class="emoji">🔎</div>
+      <h3>Message Checker</h3>
+      <p>Review message text for common scam warning signs.</p>
+    </div>
+    <div class="card">
+      <div class="emoji">🛡️</div>
+      <h3>Brand Protection</h3>
+      <p>Learn how fake brand accounts and impersonation attempts can mislead users.</p>
+    </div>
+    <div class="card">
+      <div class="emoji">🔐</div>
+      <h3>Safety Tips</h3>
+      <p>Discover simple steps to protect your accounts and personal information.</p>
+    </div>
+  </div>
+</section>
+
+<section id="scanner">
+  <h2>Smart Message Scanner</h2>
+  <p class="sub">Enter a message to check for common warning signs.</p>
+  <div class="tool">
+    <label for="message">Paste your message here</label>
+    <textarea id="message" placeholder="Example: Congratulations! You won a prize. Click this link and share your OTP..."></textarea>
+    <label for="kind">What would you like to check?</label>
+    <select id="kind">
+      <option value="message">Suspicious message</option>
+      <option value="brand">Brand impersonation warning signs</option>
+    </select>
+    <br><br>
+    <button onclick="checkMessage()">Check Message</button>
+    <button onclick="clearScanner()" style="background:#334155;color:white;margin-left:6px">Clear</button>
+    <div class="result" id="result" aria-live="polite">
+      <h3 id="resultTitle"></h3>
+      <p id="resultText"></p>
+      <p id="resultAdvice" style="margin-top:10px"></p>
+    </div>
+    <p class="note">Demo tool only: this scanner uses basic keyword checks. It does not use a trained AI model and cannot confirm whether a message is safe or fraudulent.</p>
+  </div>
+</section>
+
+<section id="about">
+  <h2>About BrandGuard AI</h2>
+  <p class="sub">Technology for a safer digital world.</p>
+  <div class="about">
+    <p>BrandGuard AI is a student web project that demonstrates how simple rule-based checks can help people notice possible online scam signals. Always verify important messages through official websites or trusted contact details.</p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <p>🛡️ BrandGuard AI · Student Project</p>
+  <p>Stay alert. Verify before you trust.</p>
+</footer>
+
+<script>
+function checkMessage(){
+  const message=document.getElementById("message").value.trim();
+  const kind=document.getElementById("kind").value;
+  const result=document.getElementById("result");
+  const title=document.getElementById("resultTitle");
+  const text=document.getElementById("resultText");
+  const advice=document.getElementById("resultAdvice");
+
+  if(!message){
+    alert("Please paste a message first.");
+    return;
+  }
+
+  const lower=message.toLowerCase();
+  const warningWords=[
+    "otp","password","urgent","verify your account",
+    "won a prize","claim your prize","click here",
+    "bank details","send money","limited time",
+    "account suspended","gift card","free reward"
+  ];
+  const found=warningWords.filter(word=>lower.includes(word));
+
+  if(kind==="brand"){
+    const brandWords=["official","brand ambassador","customer support","account verified","giveaway","free gift","brand"];
+    const brandFound=brandWords.filter(word=>lower.includes(word));
+    if(found.length>0||brandFound.length>0){
+      title.textContent="⚠️ Please Verify This Message";
+      text.textContent="Some words may need closer review: "+[...new Set([...found,...brandFound])].join(", ")+".";
+      advice.textContent="Visit the brand's official website directly. Do not share passwords, OTPs, or payment details.";
+    }else{
+      title.textContent="🔍 Manual Verification Recommended";
+      text.textContent="No obvious warning keywords were found by this basic checker.";
+      advice.textContent="This does not prove the message is genuine. Verify the sender and website independently.";
+    }
+  }else if(found.length>0){
+    title.textContent="⚠️ Potential Warning Signs Found";
+    text.textContent="Words that may require attention: "+found.join(", ")+".";
+    advice.textContent="Do not click unexpected links or share OTPs, passwords, or banking details. Verify through an official channel.";
+  }else{
+    title.textContent="🔍 No Common Warning Keywords Found";
+    text.textContent="This basic scan did not identify any of its listed warning words.";
+    advice.textContent="A message can still be fraudulent. Check the sender, links, spelling, and unexpected requests before responding.";
+  }
+  result.style.display="block";
+  result.scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+function clearScanner(){
+  document.getElementById("message").value="";
+  document.getElementById("result").style.display="none";
+  document.getElementById("kind").selectedIndex=0;
+}
+</script>
+</body>
+</html>
+
