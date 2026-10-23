@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrandGuard AI</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#0b1020;color:#f5f7ff}
+header{padding:25px;background:linear-gradient(120deg,#7928ca,#3678f5)}
+header h1{margin:0;font-size:28px}
+header p{margin-bottom:0;color:#e5eaff}
+nav{display:flex;gap:8px;flex-wrap:wrap;padding:14px;background:#131b30}
+button{cursor:pointer;border:0;border-radius:9px;padding:11px 15px;font-weight:bold}
+nav button{background:#25314c;color:white}
+nav button.active{background:#7958f5}
+main{max-width:1000px;margin:auto;padding:20px}
+section{display:none}
+section.active{display:block}
+.card{background:#151f35;border:1px solid #2d3b58;border-radius:16px;padding:20px;margin-bottom:18px}
+h2{margin-top:0}
+.muted{color:#aebbd5;line-height:1.6}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-top:18px}
+.stat{padding:17px;border-radius:12px;background:#25314c}
+.stat strong{display:block;font-size:27px;margin-top:8px}
+input,textarea,select{display:block;width:100%;padding:12px;margin:8px 0 16px;background:#0d1629;color:white;border:1px solid #3b4b6b;border-radius:9px}
+textarea{min-height:130px;resize:vertical}
+.action{background:#7958f5;color:white;margin:4px 3px 4px 0}
+.secondary{background:#293854;color:white}
+.green{background:#087f68;color:white}
+.result{padding:15px;margin-top:16px;border-radius:12px;background:#202d46;border-left:4px solid #f2b85c}
+.good{border-left-color:#39d9a1}
+.tag{color:#f7c976;font-size:12px;font-weight:bold}
+.item{padding:15px;margin:12px 0;background:#202d46;border-radius:10px;overflow-wrap:anywhere}
+.hidden{display:none}
+@media(max-width:500px){main{padding:12px}.card{padding:15px}nav button{padding:10px;font-size:12px}}
+</style>
+</head>
+<body>
+<header>
+<h1>🛡️ BrandGuard AI</h1>
+<p>Smart Brand Compliance & Content Review</p>
+</header>
+
+<nav>
+<button class="active" data-page="dashboard">Dashboard</button>
+<button data-page="review">Content Review</button>
+<button data-page="guidelines">Guidelines</button>
+<button data-page="approvals">Approvals</button>
+<button data-page="history">History</button>
+</nav>
+
+<main>
+<section id="dashboard" class="active">
+<div class="card">
+<h2>Welcome to BrandGuard AI ✨</h2>
+<p class="muted">Review marketing content, identify risky claims and maintain consistent brand communication in one place.</p>
+<button class="action" onclick="go('review')">Start Content Review →</button>
+<div class="stats">
+<div class="stat">📝 Total Reviews<strong id="total">0</strong></div>
+<div class="stat">⚠️ Issues Found<strong id="issues">0</strong></div>
+<div class="stat">⏳ Pending<strong id="pending">0</strong></div>
+<div class="stat">✅ Approved<strong id="approved">0</strong></div>
+</div>
+</div>
+<div class="card">
+<h2>How it works</h2>
+<p>1. Enter marketing content.</p>
+<p>2. Check brand compliance.</p>
+<p>3. Review the suggestions.</p>
+<p>4. Submit the content for approval.</p>
+</div>
+</section>
+
+<section id="review">
+<div class="card">
+<h2>✦ Content Review</h2>
+<label>Content Title</label>
+<input id="title" placeholder="Enter content title">
+<label>Content Type</label>
+<select id="ctype">
+<option>Social Media</option>
+<option>Advertisement</option>
+<option>Email Campaign</option>
+<option>Website Content</option>
+<option>Product Description</option>
+</select>
+<label>Marketing Content</label>
+<textarea id="content" placeholder="Paste your marketing content here..."></textarea>
+<button class="action" onclick="checkContent()">Check Compliance</button>
+<button class="action secondary" onclick="sample()">Try Sample</button>
+<button class="action secondary" onclick="clearForm()">Clear</button>
+<div id="findings"></div>
+</div>
+</section>
+
+<section id="guidelines">
+<div class="card">
+<h2>◈ Brand Guidelines</h2>
+<p class="muted">BrandGuard Demo · Friendly and professional tone</p>
+<div class="item"><b>🚫 Words to review</b><p>guaranteed, risk-free, 100%, cure</p></div>
+<div class="item"><b>✨ Preferred wording</b><p>reliable, simple, trusted</p></div>
+<div class="item"><b>✓ Required term</b><p>Use “quality” when relevant to the content.</p></div>
+<div class="item"><b>⚖️ Claims and evidence</b><p>Verify strong claims before publishing.</p></div>
+</div>
+</section>
+
+<section id="approvals">
+<div class="card">
+<h2>✓ Approval Center</h2>
+<div id="approvalList"><p class="muted">No submissions yet.</p></div>
+</div>
+</section>
+
+<section id="history">
+<div class="card">
+<h2>◷ Insights & History</h2>
+<div id="historyList"><p class="muted">Your activity will appear here.</p></div>
+<button class="action" onclick="exportData()">Export Activity</button>
+</div>
+</section>
+</main>
+
+<script>
+const $=id=>document.getElementById(id);
+let reports=[];
+
+try{
+reports=JSON.parse(localStorage.getItem('brandguard_data')||'[]');
+if(!Array.isArray(reports))reports=[];
+}catch(e){reports=[];}
+
+function go(id){
+document.querySelectorAll('main section').forEach(s=>s.classList.remove('active'));
+$(id).classList.add('active');
+document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));
+if(id==='approvals')renderApprovals();
+if(id==='history')renderHistory();
+window.scrollTo(0,0);
+}
+
+document.querySelectorAll('nav button').forEach(b=>{
+b.addEventListener('click',()=>go(b.dataset.page));
+});
+
+function sample(){
+$('title').value='Smart Product Promotion';
+$('ctype').value='Social Media';
+$('content').value='Our product is guaranteed and risk-free. It is the best ever solution.';
+checkContent();
+}
+
+function clearForm(){
+$('title').value='';
+$('content').value='';
+$('findings').innerHTML='';
+}
+
+function checkContent(){
+const text=$('content').value.trim();
+if(!text){alert('Please enter marketing content first.');return;}
+
+const low=text.toLowerCase();
+let findings=[];
+
+['guaranteed','risk-free','100%','cure','best ever'].forEach(word=>{
+if(low.includes(word)){
+findings.push({
+type:'Risky wording',
+word:word,
+message:'Review this phrase and verify the claim before publishing.'
+});
+}
+});
+
+if(!low.includes('quality')){
+findings.push({
+type:'Suggested improvement',
+word:'quality',
+message:'Consider mentioning quality where appropriate.'
+});
+}
+
+['reliable','simple','trusted'].forEach(word=>{
+if(!low.includes(word)){
+findings.push({
+type:'Preferred wording',
+word:word,
+message:'Consider using this word if it fits the message.'
+});
+}
+});
+
+if(findings.length===0){
+findings.push({
+type:'Looks good',
+word:'No major issues found',
+message:'No configured wording issues detected. Review claims before publishing.'
+});
+}
+
+const safe=s=>String(s).replace(/[&<>"']/g,c=>({
+'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+}[c]));
+
+$('findings').innerHTML=
+'<div class="result"><h3>Review Results</h3>'+
+'<p class="muted">'+findings.length+' finding(s)</p>'+
+findings.map(f=>
+'<div class="item"><span class="tag">'+safe(f.type)+'</span>'+
+'<p><b>'+safe(f.word)+'</b></p><p>'+safe(f.message)+'</p>'+
+'<button class="action" onclick="suggest('+JSON.stringify(f.word).replace(/</g,'\\u003c')+')">Use Suggestion</button></div>'
+).join('')+
+'<button class="action green" onclick="submitApproval()">Submit for Approval</button></div>';
+
+$('issues').textContent=Number($('issues').textContent)+findings.filter(f=>f.type==='Risky wording').length;
+}
+
+function suggest(word){
+let text=$('content').value;
+if(word==='guaranteed')text=text.replace(/guaranteed/ig,'designed to support');
+else if(word==='risk-free')text=text.replace(/risk-free/ig,'designed with safety in mind');
+else if(word==='quality')text+=' We focus on quality.';
+else if(['reliable','simple','trusted'].includes(word))text+=' We aim to provide '+word+' solutions.';
+else text=text.replace(new RegExp(word.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'ig'),'carefully reviewed');
+$('content').value=text;
+alert('Suggestion applied! Check compliance again.');
+}
+
+function submitApproval(){
+const content=$('content').value.trim();
+if(!content){alert('Enter content first.');return;}
+reports.unshift({
+title:$('title').value.trim()||'Untitled Content',
+type:$('ctype').value,
+content:content,
+status:'Pending Approval',
+date:new Date().toLocaleString()
+});
+save();
+alert('Submitted for approval!');
+go('approvals');
+}
+
+function save(){
+try{localStorage.setItem('brandguard_data',JSON.stringify(reports));}catch(e){}
+refresh();
+}
+
+function renderApprovals(){
+if(!reports.length){
+$('approvalList').innerHTML='<p class="muted">No submissions yet.</p>';
+return;
+}
+$('approvalList').innerHTML=reports.map((r,i)=>
+'<div class="item"><h3>'+escapeHTML(r.title)+'</h3>'+
+'<p>'+escapeHTML(r.type)+' · <b>'+escapeHTML(r.status)+'</b></p>'+
+'<p>'+escapeHTML(r.content)+'</p><p class="muted">'+escapeHTML(r.date)+'</p>'+
+(r.status==='Pending Approval'?
+'<button class="action green" onclick="decide('+i+',true)">Approve</button>'+
+'<button class="action secondary" onclick="decide('+i+',false)">Request Changes</button>':'')+
+'</div>'
+).join('');
+}
+
+function decide(i,approved){
+reports[i].status=approved?'Approved':'Changes Requested';
+save();
+renderApprovals();
+renderHistory();
+}
+
+function renderHistory(){
+if(!reports.length){
+$('historyList').innerHTML='<p class="muted">No activity yet.</p>';
+return;
+}
+$('historyList').innerHTML=reports.map(r=>
+'<div class="item"><b>'+escapeHTML(r.title)+'</b>'+
+'<p>'+escapeHTML(r.date)+'</p><p>Status: '+escapeHTML(r.status)+'</p></div>'
+).join('');
+}
+
+function escapeHTML(s){
+return String(s).replace(/[&<>"']/g,c=>({
+'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+}[c]));
+}
+
+function refresh(){
+$('total').textContent=reports.length;
+$('pending').textContent=reports.filter(r=>r.status==='Pending Approval').length;
+$('approved').textContent=reports.filter(r=>r.status==='Approved').length;
+}
+
+function exportData(){
+const blob=new Blob([JSON.stringify(reports,null,2)],{type:'application/json'});
+const url=URL.createObjectURL(blob);
+const a=document.createElement('a');
+a.href=url;
+a.download='brandguard-activity.json';
+a.click();
+setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+
+refresh();
+</script>
+</body>
+</html>
